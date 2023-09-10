@@ -3,6 +3,9 @@ let index = {
         $("#btn-save").on("click",()=>{
            this.save();
         });
+        $("#btn-update").on("click",()=>{
+           this.update();
+        });
     },
     save: function(){
         let data = {
@@ -24,8 +27,26 @@ let index = {
         }).fail(function(err){
             alert(JSON.stringify(err));
         });
-    }
-
+    },
+    update: function(){
+            let data = {
+                id : $("#id").val(),
+                usernname : $("#username").val(),
+                password : $("#password").val(),
+                email : $("#email").val()
+            };
+            $.ajax({
+                type: "PUT",
+                url: "/user",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            }).done(function(res){
+                alert("회원수정이 완료되었습니다.");
+                location.href= "/";
+            }).fail(function(err){
+                alert(JSON.stringify(err));
+            });
+        }
 }
-
 index.init();

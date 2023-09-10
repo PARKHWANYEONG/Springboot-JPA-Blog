@@ -2,6 +2,7 @@ package com.welcome.blog.service;
 
 
 import com.welcome.blog.Repository.UserRepository;
+import com.welcome.blog.config.auth.PrincipalDetails;
 import com.welcome.blog.domain.RoleType;
 import com.welcome.blog.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,13 @@ public class UserService {
         user.setRoleType(RoleType.USER);
         user.setPassword(encPassword);
         userRepository.save(user);
+    }
+    public void userModify(User updateUser, PrincipalDetails principalDetails) {
+        User user = userRepository.findById(updateUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("userModify: 회원 찾기 실패"));
+        user.setEmail(updateUser.getEmail());
+        String encPassword = encoder.encode(updateUser.getPassword());
+        user.setPassword(encPassword);
+        principalDetails.setUser(user);
     }
 }

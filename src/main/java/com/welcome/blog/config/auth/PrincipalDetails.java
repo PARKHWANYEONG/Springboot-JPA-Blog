@@ -2,16 +2,22 @@ package com.welcome.blog.config.auth;
 
 
 import com.welcome.blog.domain.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Getter
 public class PrincipalDetails implements UserDetails {
 
     private User user;
     public PrincipalDetails(User user) {
+        this.user = user;
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 

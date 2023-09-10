@@ -2,11 +2,13 @@ package com.welcome.blog.domain;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 public class Board extends BaseTimeEntity{
 
@@ -20,7 +22,6 @@ public class Board extends BaseTimeEntity{
     @Lob
     private String content;
 
-    @ColumnDefault("0")
     private int count; //조회수
 
     @ManyToOne(fetch = FetchType.LAZY)
