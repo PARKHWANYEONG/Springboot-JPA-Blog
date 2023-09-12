@@ -3,11 +3,13 @@ package com.welcome.blog.controller.api;
 
 import com.welcome.blog.config.auth.PrincipalDetails;
 import com.welcome.blog.config.auth.PrincipalDetailsService;
+import com.welcome.blog.domain.Comment;
 import com.welcome.blog.domain.RoleType;
 import com.welcome.blog.domain.User;
 import com.welcome.blog.dto.ResponseDto;
 import com.welcome.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserApiController {

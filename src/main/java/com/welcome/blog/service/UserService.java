@@ -26,9 +26,14 @@ public class UserService {
     public void userModify(User updateUser, PrincipalDetails principalDetails) {
         User user = userRepository.findById(updateUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("userModify: 회원 찾기 실패"));
-        user.setEmail(updateUser.getEmail());
-        String encPassword = encoder.encode(updateUser.getPassword());
-        user.setPassword(encPassword);
-        principalDetails.setUser(user);
+        if (user.getOauth() == null || user.getOauth().equals("")) {
+            user.setEmail(updateUser.getEmail());
+            String encPassword = encoder.encode(updateUser.getPassword());
+            user.setPassword(encPassword);
+            principalDetails.setUser(user);
+        }
+    }
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
     }
 }

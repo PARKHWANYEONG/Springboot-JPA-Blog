@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +29,8 @@ public class Board extends BaseTimeEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OrderBy("id desc")
+    @OneToMany(mappedBy = "board",cascade = CascadeType.REMOVE)
+    private List<Comment> comments = new ArrayList<>();
 }

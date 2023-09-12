@@ -1,6 +1,8 @@
 package com.welcome.blog;
 
+import com.welcome.blog.Repository.BoardRepository;
 import com.welcome.blog.Repository.UserRepository;
+import com.welcome.blog.domain.Board;
 import com.welcome.blog.domain.RoleType;
 import com.welcome.blog.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class TestController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    BoardRepository boardRepository;
+
     @PostMapping("/join")
     public String join(User user) {
         System.out.println("user.getId() = " + user.getId());
@@ -38,10 +43,11 @@ public class TestController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<User> select(@PathVariable Long id) {
-        User user = userRepository.findById(id).orElseThrow(()->
-                new IllegalArgumentException("해당 사용자는 없습니다. id="+ id));
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 사용자는 없습니다. id=" + id));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> selectAll() {
         List<User> all = userRepository.findAll();
@@ -49,9 +55,13 @@ public class TestController {
     }
 
     @GetMapping("/users/page")
-    public Page<User> page(@PageableDefault(size = 2,page = 1,sort = "id" ,direction = Sort.Direction.DESC) Pageable pageable){
+    public Page<User> page(@PageableDefault(size = 2, page = 1, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<User> page = userRepository.findAll(pageable);
         return page;
     }
 
+    @GetMapping("/test/board/{id}")
+    public Board getBoard(@PathVariable Long id) {
+        return boardRepository.findById(id).get();
+    }
 }

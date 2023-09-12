@@ -1,13 +1,16 @@
 package com.welcome.blog.domain;
 
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class User extends BaseTimeEntity {
 
@@ -16,7 +19,7 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false, length = 30,unique = true)
+    @Column(nullable = false, length = 100,unique = true)
     private String username; //아이디
 
     @Column(nullable = false, length = 100)
@@ -27,4 +30,13 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
+
+    private String oauth;
+    @Builder
+    public User(String username, String password, String email,String oauth) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.oauth = oauth;
+    }
 }

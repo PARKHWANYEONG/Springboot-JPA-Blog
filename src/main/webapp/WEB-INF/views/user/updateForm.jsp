@@ -8,16 +8,16 @@
         <label for="username">Username</label>
         <input type="text" id="username" class="form-control" value="${principal.user.username}" placeholder="Enter username" readonly>
       </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Enter password" required>
-      </div>
-
-      <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" class="form-control" value="${principal.user.email}" placeholder="Enter email" required>
-      </div>
+      <c:if test="${empty principal.user.oauth}">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="form-control" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" value="${principal.user.email}" placeholder="Enter email">
+            </div>
+      </c:if>
     </form>
     <button id="btn-update" class="btn btn-primary">수정완료</button>
 </div>
